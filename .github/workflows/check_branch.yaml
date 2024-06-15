@@ -21,7 +21,14 @@ jobs:
         with:
           node-version: 15.0.1
       
+      - name: Install dependencies
+        run: npm install
+      - name: Lint
+        run: npm run lint
+      - name: Formatter
+        run: npm run prettier
+      - name: Test
+        run: CI=true npm run test
       - name: Build
-        run: |
-          npm build
+        run: npm build
         
