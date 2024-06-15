@@ -2,6 +2,10 @@ name: 'Deploy'
 
 on:
   push:
+    branches:
+      - devel
+      - stage
+      - prod
 
 permissions:
   actions: write
