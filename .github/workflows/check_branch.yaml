@@ -1,14 +1,27 @@
-name: 'Check Branch'
+name: 'Build'
 
 on:
   pull_request:
 
 jobs:
-  check_branch:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - name: Check branch
         if: (github.base_ref == 'prod' && github.head_ref != 'stage') || (github.base_ref == 'stage' && github.head_ref != 'devel')
         run: |
-          echo "ERROR: You can only merge to main from dev."
+          echo "ERROR: You can only merge to prod from stage or from devel to stage."
           exit 1
+
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 15.0.1
+      
+      - name: Build
+        run: |
+          npm build
+        
