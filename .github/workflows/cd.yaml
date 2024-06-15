@@ -20,11 +20,11 @@ jobs:
       - name: Set environment
         id: set_env
         run: |
-          if [[ "${{ github.base_ref }}" == "devel" ]]; then
+          if [[ "${{ github.ref_name }}" == "devel" ]]; then
               ENVIRONMENT="dev"
-          elif [[ "${{ github.base_ref }}" == "stage" ]]; then
+          elif [[ "${{ github.ref_name }}" == "stage" ]]; then
               ENVIRONMENT="stage"
-          elif [[ "${{ github.base_ref }}" == "prod" ]]; then
+          elif [[ "${{ github.ref_name }}" == "prod" ]]; then
               ENVIRONMENT="prod"
           fi
 
@@ -72,11 +72,11 @@ jobs:
       - name: Set environment
         id: set_env
         run: |
-          if [[ "${{ github.base_ref }}" == "devel" ]]; then
+          if [[ "${{ github.ref_name }}" == "devel" ]]; then
               ENVIRONMENT="dev"
-          elif [[ "${{ github.base_ref }}" == "stage" ]]; then
+          elif [[ "${{ github.ref_name }}" == "stage" ]]; then
               ENVIRONMENT="stage"
-          elif [[ "${{ github.base_ref }}" == "prod" ]]; then
+          elif [[ "${{ github.ref_name }}" == "prod" ]]; then
               ENVIRONMENT="prod"
           fi
 
