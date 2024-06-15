@@ -1,10 +1,10 @@
-name: 'Build'
+name: 'Check branch'
 
 on:
   pull_request:
 
 jobs:
-  Build:
+  check_branch:
     runs-on: ubuntu-latest
     steps:
       - name: Check branch
@@ -12,23 +12,3 @@ jobs:
         run: |
           echo "ERROR: You can only merge to prod from stage or from devel to stage."
           exit 1
-
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 15.0.1
-      
-      - name: Install dependencies
-        run: npm install
-      - name: Lint
-        run: npm run lint
-      - name: Formatter
-        run: npm install -g prettier && npm run prettier
-      - name: Test
-        run: CI=true npm run test
-      - name: Build
-        run: npm build
-        
