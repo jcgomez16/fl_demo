@@ -51,7 +51,7 @@ jobs:
           aws-region: us-west-2
 
       - name: Terraform init
-        run: terraform init
+        run: terraform init -backend-config="key=${{ steps.set_env.outputs.environment }}/application/terraform.tfstate"
 
       - name: Terraform plan
         run: TF_VAR_environment="${{ steps.set_env.outputs.environment }}" terraform plan
