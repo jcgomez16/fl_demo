@@ -10,6 +10,20 @@ jobs:
       run:
         working-directory: ./infra/terraform/aws/application
     steps:
+      - name: Set environment
+        id: set_env
+        run: |
+          if [[ "${{ github.base_ref }}" == "devel" ]]; then
+              ENVIRONMENT="devel"
+          elif [[ "${{ github.base_ref }}" == "stage" ]]; then
+              ENVIRONMENT="devel"
+          elif [[ "${{ github.base_ref }}" == "prod" ]]; then
+              ENVIRONMENT="devel"
+            LAMBDA_S3_BUCKET="coast-lambdas"
+          fi
+
+          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
+          
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -31,5 +45,6 @@ jobs:
 
       - name: Terraform init
         run: terraform init
+
       - name: Terraform plan
-        run: TF_VAR_environment="dev" terraform plan
+        run: TF_VAR_environment="${{ steps.set_env.outputs.environment }}" terraform plan
