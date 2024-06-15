@@ -6,6 +6,9 @@ on:
 jobs:
   deploy_infra:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infra/terraform/aws/application
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,6 +29,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
+      - name: Terraform init
+        run: terraform init
       - name: Terraform plan
-        working-directory: ./infra/terraform/aws/application
         run: TF_VAR_environment="dev" terraform plan
