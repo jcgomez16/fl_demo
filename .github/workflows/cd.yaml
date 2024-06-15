@@ -3,6 +3,10 @@ name: 'Deploy'
 on:
   pull_request:
 
+permissions:
+  actions: write
+  pull-requests: write
+
 jobs:
   deploy_infra:
     runs-on: ubuntu-latest
